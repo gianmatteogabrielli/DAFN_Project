@@ -1,2 +1,2 @@
 # DAFN_Project
-## ciao
+Repository creata per il progetto relativo all'esame DAFN.
