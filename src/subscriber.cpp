@@ -1,14 +1,14 @@
 #include <rclcpp/rclcpp.hpp>
-#include "simulink_wrapper/subscriber.hpp"
+#include "simulink_wrapper_cpp/subscriber.hpp"
 
 SimulinkSubscriber::SimulinkSubscriber()
 : Node("simulink_subscriber") {
-    subscriber_ = this->create_subscription<std_msgs::msg::String>(
-        "simulink_input", 10, std::bind(&SimulinkSubscriber::topic_callback, this, std::placeholders::_1));
+    subscriber_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+        "simulink_output", 10, std::bind(&SimulinkSubscriber::topic_callback, this, std::placeholders::_1));
 }
 
-void SimulinkSubscriber::topic_callback(const std_msgs::msg::String::SharedPtr msg) {
-    RCLCPP_INFO(this->get_logger(), "Received: '%s'", msg->data.c_str());
+void SimulinkSubscriber::topic_callback(const std_msgs::msg::Float64MultiArray::SharedPtr msg) {
+        RCLCPP_INFO(this->get_logger(), "Received: '%f, %f, %f, %f'", msg->data[0], msg->data[1], msg->data[2], msg->data[3]);
     // Logica per interagire con il modello Simulink
 }
 
