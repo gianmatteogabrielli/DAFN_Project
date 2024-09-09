@@ -1,13 +1,13 @@
 #include <rclcpp/rclcpp.hpp>
-#include "simulink_wrapper_cpp_new/modelnode.hpp"
+#include <simulink_wrapper/modelnode.hpp>
 
 
 SimulinkModelNode::SimulinkModelNode()
-: Node("simulink_modelNode"){
+: Node("simulink_wrapper"){
 
     RCLCPP_INFO(this->get_logger(), "SIMULINK NODE (select verbosity: true to see logs)");
     // Inizializza la libreria Simulink
-    simulinkLibraryName = "/home/neo/workspace/src/cpp/simulink_wrapper_cpp_new/mylibs/libdigitalfilter.so";
+    simulinkLibraryName = "/home/neo/workspace/libs/libdigitalfilter.so";
     symbol_prefix_ = "libdigitalfilter";
 
 
@@ -22,8 +22,7 @@ SimulinkModelNode::SimulinkModelNode()
     param_descriptor_.set__name("verbose");
     param_descriptor_.set__type(rcl_interfaces::msg::ParameterType::PARAMETER_BOOL);
     param_descriptor_.set__description("Set the code verbose.");
-    param_descriptor_.set__additional_constraints(
-    "The parameter accepts only boolean value.");
+    param_descriptor_.set__additional_constraints("The parameter accepts only boolean value.");
     param_descriptor_.set__read_only(false);
     param_descriptor_.set__dynamic_typing(false);
 
@@ -65,7 +64,7 @@ bool SimulinkModelNode::verifyDimensions(const std_msgs::msg::Float64MultiArray:
 
     for(uint32_t i = 0; i < inputDimension.dimension; i++)
     {
-        if(msg->layout.dim[i].size != inputDimension.arrayDimensions[i])
+        if(msg->layout.dim[i].size != (uint32_t)inputDimension.arrayDimensions[i])
         {
             RCLCPP_ERROR(this->get_logger(), "Errore nelle dimensioni del segnale di ingresso.");
             return false;
@@ -161,7 +160,7 @@ bool SimulinkModelNode::ScanRootIO(rtwCAPI_ModelMappingInfo* mmi, const rtwCAPI_
 {
     uint32_T       nOfSignals = 0u;
     std::string sigName;
-    uint16_T       dataTypeIdx;
+    //uint16_T       dataTypeIdx;
     //uint8_T       slDataID;
     //uint16_T      numElements;
     //uint16_T       dataTypeSize;
@@ -227,7 +226,7 @@ bool SimulinkModelNode::ScanRootIO(rtwCAPI_ModelMappingInfo* mmi, const rtwCAPI_
     ok = (sigGroup != NULL);
     for (uint16_T sigIdx = 0u; (sigIdx < nOfSignals) && ok ; sigIdx++)
     {
-        dataTypeIdx  = rtwCAPI_GetSignalDataTypeIdx(sigGroup, sigIdx);
+        //dataTypeIdx  = rtwCAPI_GetSignalDataTypeIdx(sigGroup, sigIdx);
         sigName      = rtwCAPI_GetSignalName(sigGroup, sigIdx);
         //slDataID     = rtwCAPI_GetDataTypeSLId(dataTypeMap, dataTypeIdx);
         //numElements  = rtwCAPI_GetDataTypeNumElements(dataTypeMap,dataTypeIdx);

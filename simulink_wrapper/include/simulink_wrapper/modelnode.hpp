@@ -5,10 +5,9 @@
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <string>
 #include <dlfcn.h>
-#include "simulink_wrapper_cpp_new/rtw_modelmap.h"
 #include <vector>
 
-
+#include "rtw_modelmap.h"
 
 struct SignalDimensions {
     uint32_t dimension;     // dimensione del segnale: scalare, bidimensionale, etc...
@@ -31,7 +30,7 @@ private:
     const rtwCAPI_ModelParameters* modelParams;     //!< Pointer to the structure storing parameter data.
     const rtwCAPI_Signals*         rootInputs;      //!< Pointer to the structure storing root input data.
     const rtwCAPI_Signals*         rootOutputs;     //!< Pointer to the structure storing root output data.
-    const rtwCAPI_Signals*         sigGroup;        //!< Pointer to rootInputs or rootOutputs depending on what structure the GAM is parsing.
+    const rtwCAPI_Signals*         sigGroup;        //!< Pointer to rootInputs or rootOutputs depending on what structure the node is parsing.
     const rtwCAPI_DataTypeMap*     dataTypeMap;     //!< Pointer to the structure storing data types of parameters, inputs and outputs.
     const rtwCAPI_ElementMap*      elementMap;      //!< Pointer to the structure storing data for elements of a structured parameter or signal.
     const rtwCAPI_DimensionMap*    dimMap;          //!< Pointer to the structure storing the dimensions of parameters, inputs and outputs.
@@ -76,21 +75,5 @@ private:
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr publisher_node;
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif // SIMULINK_WRAPPER_MODELNODE_HPP_

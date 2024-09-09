@@ -1,5 +1,5 @@
 #include <rclcpp/rclcpp.hpp>
-#include "simulink_wrapper_cpp_new/subscriber.hpp"
+#include <simulink_wrapper/subscriber.hpp>
 
 SimulinkSubscriber::SimulinkSubscriber()
 : Node("simulink_subscriber") {

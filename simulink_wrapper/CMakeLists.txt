@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(simulink_wrapper_cpp_new)
+project(simulink_wrapper)
 
 set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
@@ -22,13 +22,6 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
-include_directories(
-  include
-)
-
-# Specifica il percorso completo della directory mylibs
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/mylibs)
-
 # publisher
 add_executable(publisher src/publisher.cpp)
 target_include_directories(publisher PUBLIC
@@ -38,7 +31,6 @@ ament_target_dependencies(
   publisher
   rclcpp
   std_msgs)
-#target_link_libraries(publisher digitalfilter) # Assicurati che il nome della libreria sia corretto
 
 # subscriber
 add_executable(subscriber src/subscriber.cpp)
@@ -49,7 +41,6 @@ ament_target_dependencies(
   subscriber
   rclcpp
   std_msgs)
-#target_link_libraries(subscriber digitalfilter) # Assicurati che il nome della libreria sia corretto
 
 # modelNode
 add_executable(modelnode src/modelnode.cpp)
@@ -60,7 +51,7 @@ ament_target_dependencies(
   modelnode
   rclcpp
   std_msgs)
-  target_link_libraries(modelnode dl) # Assicurati che il nome della libreria sia corretto
+target_link_libraries(modelnode dl)
 
 # Install executables
 install(TARGETS publisher

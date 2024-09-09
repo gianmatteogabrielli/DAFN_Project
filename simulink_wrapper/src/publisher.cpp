@@ -1,5 +1,5 @@
 #include <rclcpp/rclcpp.hpp>
-#include "simulink_wrapper_cpp_new/publisher.hpp"
+#include <simulink_wrapper/publisher.hpp>
 
 SimulinkPublisher::SimulinkPublisher()
 : Node("simulink_publisher") {
@@ -32,4 +32,3 @@ int main(int argc, char* argv[]) {
     rclcpp::shutdown();
     return 0;
 }
-
